@@ -2,18 +2,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
-import reducers from 'reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { Router, Route } from 'react-router';
 import { routerMiddleware } from 'connected-react-router';
 import { Provider } from 'react-redux';
-import Page from 'components/Page';
-import Instrument from 'components/Instrument';
-import createHistory from 'history/createBrowserHistory';
+import Page from './components/Page';
+import SearchInstrument from './components/SearchInstrument';
+import reducers from './reducers';
 
 
-const history = createHistory();
+const history = require('history').createBrowserHistory();
 
 const middleware = [
   thunk,
@@ -28,7 +27,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route component={Page}>
-        <Route path="/" component={Instrument} />
+        <Route path="/" component={SearchInstrument} />
       </Route>
     </Router>
   </Provider>,

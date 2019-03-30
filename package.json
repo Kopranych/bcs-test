@@ -15,7 +15,8 @@
     "superagent": "^5.0.2",
     "classnames": "^2.2.6",
     "ramda": "^0.26.1",
-    "connected-react-router": "^6.3.2"
+    "connected-react-router": "^6.3.2",
+    "bootstrap": "^4.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
