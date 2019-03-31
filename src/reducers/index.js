@@ -3,6 +3,6 @@ import { routerReducer } from 'react-router-redux';
 import instruments from './instruments';
 
 export default combineReducers({
-  instruments,
   routing: routerReducer,
+  instruments,
 });
