@@ -1,13 +1,18 @@
-import { FETCH_INSTRUMENTS } from '../action';
+import { FETCH_INSTRUMENT, FETCH_ALL_INSTRUMENTS } from '../action';
 
 const initialState = {};
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case FETCH_INSTRUMENTS:
+    case FETCH_ALL_INSTRUMENTS:
       return {
         ...state,
-        payload,
+        instruments: payload,
+      };
+    case FETCH_INSTRUMENT:
+      return {
+        ...state,
+        instrument: payload,
       };
     default:
       return state;

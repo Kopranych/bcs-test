@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types,react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchInstruments } from '../action';
+import { fetchAllInstruments } from '../action';
 
 const mapDispatchToProps = {
-  fetchInstruments,
+  fetchInstruments: fetchAllInstruments,
 };
 
 class SearchInstrument extends Component {

@@ -8,7 +8,6 @@ import { Router, Route } from 'react-router';
 import { routerMiddleware } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import Page from './components/Page';
-import SearchInstrument from './components/SearchInstrument';
 import reducers from './reducers';
 
 
@@ -26,9 +25,7 @@ const store = createStore(reducers, composeWithDevTools(
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route component={Page}>
-        <Route path="/" component={SearchInstrument} />
-      </Route>
+      <Route path="/" component={Page} />
     </Router>
   </Provider>,
   document.getElementById('root'),
