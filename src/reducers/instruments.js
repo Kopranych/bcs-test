@@ -1,6 +1,8 @@
 import { FETCH_INSTRUMENT, FETCH_ALL_INSTRUMENTS } from '../action';
 
-const initialState = {};
+const initialState = {
+  instruments: [],
+};
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
