@@ -1,17 +1,18 @@
 /* eslint-disable react/prop-types */
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {fetchAllInstruments, fetchInstrument} from '../action';
+import {fetchAllInstruments, fetchQuote} from '../action';
 import ReactAutocomplete from 'react-autocomplete';
 
 const mapDispatchToProps = {
   fetchAllInstruments,
-  fetchInstrument,
+  fetchQuote: fetchQuote,
 };
 
 const mapStateToProps = state => {
   return {
     instruments: state.instruments.instruments,
+    selectedInstruments: state.instruments.selectedInstruments,
   }
 };
 
@@ -41,33 +42,25 @@ class Page extends PureComponent {
   getSuggestions = value => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
-    const {instruments} = this.props;
+    const { instruments } = this.props;
     return inputLength === 0 ? [] : instruments.filter(instrument =>
         instrument.symbol.toLowerCase().slice(0, inputLength) === inputValue
     );
   };
 
   onSelect = value => {
-    const inputValue = value.trim().toLowerCase();
-    const oldSelected = this.state.selected;
-    const {instruments} = this.props;
-    const instrument = instruments.filter(
-        instrument => instrument.symbol.toLowerCase() === inputValue);
-    console.log('INSTRUMENT ', instrument);
-    const newInstrument = {
-      symbol: instrument[0].symbol,
-      name: instrument[0].name,
-      date: instrument[0].date
-    };
-    oldSelected.push(newInstrument);
+    const inputValue = value.trim().toUpperCase();
+    const { instruments, fetchQuote } = this.props;
+    fetchQuote(inputValue);
     this.setState({
           value: value,
-          selected: oldSelected
         }
     )
   };
 
   render() {
+    const { selectedInstruments } = this.props;
+    console.log('SELECTED ', selectedInstruments);
     return (
         <div>
           <div className="container-view">
@@ -94,7 +87,7 @@ class Page extends PureComponent {
                                       : 'transparent'
                                 }}
                             >
-                              {item.symbol}
+                              {item.symbol} | {item.name}
                             </div>
                         }
                         value={this.state.value}
@@ -103,10 +96,16 @@ class Page extends PureComponent {
                     />
                   </form>
                   <div>
-                    {this.state.selected.map(instrument =>
+                    {selectedInstruments !== undefined ? selectedInstruments.map(instrument =>
                         <div>
-                          <span>{`ticker: ${instrument.symbol}, name: ${instrument.name}, date: ${instrument.date}`}</span>
-                        </div>)}
+                          <span>{`
+                            ticker: ${instrument.symbol},
+                            name: ${instrument.companyName},
+                            bid: ${instrument.iexBidPrice},
+                            ask: ${instrument.iexAskPrice},
+                            close: ${instrument.close}`}
+                          </span>
+                        </div>) : ''}
                   </div>
                 </div>
                 <div className="col-md-9"/>

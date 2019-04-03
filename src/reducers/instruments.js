@@ -1,7 +1,8 @@
-import { FETCH_INSTRUMENT, FETCH_ALL_INSTRUMENTS } from '../action';
+import { FETCH_QUOTE, FETCH_ALL_INSTRUMENTS } from '../action';
 
 const initialState = {
   instruments: [],
+  selectedInstruments: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -11,10 +12,10 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         instruments: payload,
       };
-    case FETCH_INSTRUMENT:
+    case FETCH_QUOTE:
       return {
         ...state,
-        instrument: payload,
+        selectedInstruments: [...state.selectedInstruments, payload],
       };
     default:
       return state;
